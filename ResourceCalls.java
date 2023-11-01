@@ -3,11 +3,11 @@ import java.io.IOException;
 import java.lang.management.ManagementFactory;
 
 public class ResourceCalls {
-	//sets up osBean object to perform system pulls for cpu and memory
+	//sets up osBean object to perform system pulls for cpu and memory, this is the only way this can be done in java
 	static com.sun.management.OperatingSystemMXBean osBean = (com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-	/*returns cpu load at the exact time it is called *will be a few % off from task manager because
+	/*returns cpu load at the exact time it is called and will be off from task manager because
 	* microsoft uses much more accurate ways of measuring that cannot be done
-	* in java. 
+	* in java. Java is not built for extensive and accurate system calls.
 	*/
 	public static double cpu() {
 		//set cpu = to the cpu load pulled from osBean * 100 to make it a percent

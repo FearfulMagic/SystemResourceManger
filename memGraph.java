@@ -14,11 +14,11 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class Graph extends JPanel {
+public class memGraph extends JPanel {
     private JFreeChart chart;
     private XYSeries series;
     
-    public Graph(String title, String x, String y) {
+    public memGraph(String title, String x, String y) {
     	series = new XYSeries("Data");
     	XYSeriesCollection dataset = new XYSeriesCollection(series);
     	
@@ -45,18 +45,17 @@ public class Graph extends JPanel {
 
 
     public void updateData() {
-    	if(!log.cpuData.isEmpty()) {
-    	double cpuValue = log.cpuData.get(log.cpuData.size() - 1);
-        series.add(series.getItemCount(), cpuValue);
-    	
-    	if(series.getItemCount() >= 10) {
+    	if(!log.MemUseData.isEmpty()) {
+    	double memValue = log.MemUseData.get(log.MemUseData.size() - 1);
+        series.add(series.getItemCount(), memValue);
+        
+    	if( series.getItemCount() >= 10) {
     		series.remove(0);
-    		cpuValue = log.cpuData.get(log.cpuData.size() - 1);
-            series.add(series.getItemCount(), cpuValue);
+    		memValue = log.MemUseData.get(log.MemUseData.size() - 1);
+            series.add(series.getItemCount(), memValue);
     	}
 
     	chart.fireChartChanged();
     }
 }
 }
-
