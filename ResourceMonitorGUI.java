@@ -33,6 +33,7 @@ public class ResourceMonitorGUI {
         
         table2 = new DefaultTableModel();
         table2.addColumn("Storage: " + ResourceCalls.storage() + " GB free out of " + ResourceCalls.totalstore() + " GB");
+       
         if(ResourceCalls.netconnection() == 0) {
         	table2.addColumn("Internet Connection Status: Connected");
         }
@@ -41,26 +42,27 @@ public class ResourceMonitorGUI {
         }
         Jtable2 = new JTable(table2);
         Jtable2.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        
+        //adds charts to the frame
         cpuChart = new Graph("CPU Usage", "Time", "CPU (%)");
         memChart = new memGraph("Memory Usage", "Time", "Memory (%)");
         JPanel chartContainer = new JPanel(new BorderLayout());
         chartContainer.add(cpuChart, BorderLayout.WEST);
         chartContainer.add(memChart,BorderLayout.EAST);
-        
+        //adds other system calls to the frame
         frame.add(new JScrollPane(processTable), BorderLayout.NORTH);
         frame.add(chartContainer, BorderLayout.SOUTH);
         frame.add(new JScrollPane(Jtable2), BorderLayout.CENTER);
         
+        //created an execution scheduler to handler to schedule resourcecalls
         exe = Executors.newScheduledThreadPool(1);
     }
         
-    //starts the timer and sets jframe to visible
+    //starts the scheduler and sets jframe to visible
     public void start() {
         frame.setVisible(true);
         updateExe();
     }
-    
+    //updates every 1 second
     private void updateExe() {
     	exe.schedule(this::update, 1, TimeUnit.SECONDS);
     }
@@ -74,7 +76,7 @@ public class ResourceMonitorGUI {
         // adds rows with relevant info
         tableModel.addRow(new Object[]{"Usage (%)", ResourceCalls.cpu(), ResourceCalls.memory()});
         tableModel.addRow(new Object[] {"Free (%)", ResourceCalls.cpufree(), ResourceCalls.memoryfree()});
-        
+        //goes back to updateExe
         updateExe();
     }
     //boring main method that starts the gui

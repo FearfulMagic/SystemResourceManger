@@ -13,7 +13,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
+//same as the other graph method only the updateData is different
 public class memGraph extends JPanel {
     private JFreeChart chart;
     private XYSeries series;
@@ -43,7 +43,7 @@ public class memGraph extends JPanel {
     	timer.start();
 }
 
-
+//honestly this is the exact same too, only difference is the array list being pulled from
     public void updateData() {
     	if(!log.MemUseData.isEmpty()) {
     	double memValue = log.MemUseData.get(log.MemUseData.size() - 1);
